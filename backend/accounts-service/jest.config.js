@@ -1,5 +1,5 @@
 /*
- * For a detailed explanation regarding each configuration property, visit:
+ * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
 
@@ -37,7 +37,7 @@ module.exports = {
   coverageReporters: [
     "text-summary",
     "lcov",
-   ],
+  ],
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: undefined,
@@ -151,9 +151,9 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-   testMatch: [
+  testMatch: [
      "**/__tests__/**/*.ts",
-   ],
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [

@@ -8,10 +8,14 @@ function getAccounts(req: Request, res: Response, next: any){
 }
 
 function getAccount(req: Request, res: Response, next: any){
-    const id = parseInt(req.params.id);
-    const index = accounts.findIndex(item => item.id === id);
     try {
-        if (index === 1) {
+        const id = parseInt(req.params.id);
+        if(!id){ 
+            throw new Error("ID is invalid format");
+        }
+
+        const index = accounts.findIndex(item => item.id === id);
+        if (index === -1) {
             return res.status(404).end();
         } else {
             return res.json(accounts[index]);
@@ -24,7 +28,7 @@ function getAccount(req: Request, res: Response, next: any){
 
 function addAccount(req: Request, res: Response, next: any){
     try {
-        //typecasting do body para a interface IAccount(Assegurando que seja seguido a interface)
+    // a interface apenas disponibiliza a visulização dos atributos do tipo IAccout
         const newAccount = req.body as IAccount;
         accounts.push(newAccount);
         res.status(201).json(newAccount);
