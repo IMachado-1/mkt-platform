@@ -1,43 +1,53 @@
 import {Request, Response} from 'express';
-import { func } from 'joi';
 import {IAccount} from '../models/account';
+//accountRepository para chamada de funções(assincronas)
+import repository from '../models/accountModel';
+
+
 
 const accounts: IAccount[] = []; // declarando array de account do tipo account, para teste do addAccount
 
-function getAccounts(req: Request, res: Response, next: any){
-    res.json(accounts);
+async function getAccounts(req: Request, res: Response, next: any){
+    const accounts = await repository.findAll();
+
+    res.json(accounts.map(item => {//zerando as senhas para retornalas
+        item.password = '';
+        return item;
+    }));
 }
 
-function getAccount(req: Request, res: Response, next: any){
+async function getAccount(req: Request, res: Response, next: any){
     try {
         const id = parseInt(req.params.id);
-        if(!id){ 
+        if(!id){  
             throw new Error("ID is invalid format");
         }
 
-        const index = accounts.findIndex(item => item.id === id);
-        if (index === -1) {
+        const account = await repository.findById(id);
+        if (account === null) {
             return res.status(404).end();
         } else {
-            return res.json(accounts[index]);
+            account.password = '';
+            return res.json(account);
         } 
     } catch (error) {
-        console.log(error);
+        console.log(`getAccount ${error}`);
         res.status(400).end();
     }
 }
 
-function addAccount(req: Request, res: Response, next: any){
+async function addAccount(req: Request, res: Response, next: any){
     try {
     // a interface apenas disponibiliza a visulização dos atributos do tipo IAccout
         const newAccount = req.body as IAccount;
-        accounts.push(newAccount);
+        const result = await repository.add(newAccount);
+        newAccount.password = '';
+        newAccount.id = result.id;
         res.status(201).json(newAccount);
     } catch (error) {
         console.log(error);
         res.status(400).end;
     }
-
 }
     
 function setAccount(req: Request, res: Response, next: any){

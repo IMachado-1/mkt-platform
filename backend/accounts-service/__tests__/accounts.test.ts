@@ -82,7 +82,7 @@ describe('Testando rotas accounts', () =>{
         }
 
         const resultado = await request(app)
-            .patch('/accounts/-1')
+            .patch('/accounts/-1')//Não existe
             .send(payload);
 
         expect(resultado.status).toEqual(404);
@@ -98,14 +98,14 @@ describe('Testando rotas accounts', () =>{
 
     it('GET /accounts/:id Deve retornar statuscode 404', async() =>{
         const resultado = await request(app)
-        .get('/accounts/2');
+        .get('/accounts/2');//Não é cadastrado
 
         expect(resultado.status).toEqual(404);
     })
 
     it('GET /accounts/:id Deve retornar statuscode 400', async() =>{
         const resultado = await request(app)
-        .get('/accounts/string');
+        .get('/accounts/string');//id deve ser integer
 
         expect(resultado.status).toEqual(400);
     })

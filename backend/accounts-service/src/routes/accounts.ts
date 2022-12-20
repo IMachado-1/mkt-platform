@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import accountsController from '../controllers/accounts';
-import { accountSchema, loginSchema } from "../models/account";
+import { accountSchema, loginSchema } from "../models/accountSchemas";
 import joi from 'joi';
 
 //Futuramente extrair validações para um modulo isolado
