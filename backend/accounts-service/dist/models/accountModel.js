@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //definição da tabela de bd
 const sequelize_1 = __importDefault(require("sequelize"));
-const db_1 = __importDefault(require("../db"));
+const db_1 = __importDefault(require("../db")); //inportando objeto Sequelize como database
 //Definir o schema que siga as regras da interface
 //Utilizar o AccountModel como generics para definir que a minha tabela siga as regras da interface IAccount e AccountCreationAttributes
 const accountModel = db_1.default.define('account', {
